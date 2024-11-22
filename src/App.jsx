@@ -1,14 +1,14 @@
-import { Routes, Route } from "react-router-dom"
-import Home from "./pages/Home"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Notes from "./pages/Notes"
-import CreateNote from "./pages/CreateNote"
-import EditNote from "./pages/EditNote"
-import ViewNote from "./pages/ViewNote"
-import NotFound from "./pages/NotFound"
-import AuthProvider from "./contexts/AuthContext.jsx"
-import "./App.css"
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Notes from './pages/Notes';
+import CreateNote from './pages/CreateNote';
+import EditNote from './pages/EditNote';
+import ViewNote from './pages/ViewNote';
+import NotFound from './pages/NotFound';
+import AuthProvider from './contexts/AuthContext.jsx';
+import './App.css';
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
         </Routes>
       </div>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

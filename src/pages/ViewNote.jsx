@@ -1,37 +1,37 @@
-import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { getNoteById, deleteNote } from "../services/noteService"
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getNoteById, deleteNote } from '../services/noteService';
 
 function ViewNote() {
-  const [note, setNote] = useState(null)
-  const { id } = useParams() // Retrieve the note id from the URL
-  const navigate = useNavigate()
+  const [note, setNote] = useState(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadNote = async () => {
       try {
-        const fetchedNote = await getNoteById(id)
-        setNote(fetchedNote)
+        const fetchedNote = await getNoteById(id);
+        setNote(fetchedNote);
       } catch (error) {
-        console.error(error)
-        navigate("/notes") // Redirect to notes if note fetch fails
+        console.error(error);
+        navigate('/notes');
       }
-    }
+    };
 
-    loadNote()
-  }, [id, navigate])
+    loadNote();
+  }, [id, navigate]);
 
   const handleDelete = async () => {
     try {
-      await deleteNote(id)
-      navigate("/notes") // Navigate back to the notes list after deleting
+      await deleteNote(id);
+      navigate('/notes');
     } catch (error) {
-      console.error("Failed to delete note", error)
+      console.error('Failed to delete note', error);
     }
-  }
+  };
 
   if (!note) {
-    return <p>Loading...</p> // Show loading message until the note is fetched
+    return <p>Loading...</p>;
   }
 
   return (
@@ -44,10 +44,7 @@ function ViewNote() {
           >
             Edit
           </button>
-          <button
-            onClick={handleDelete}
-            className="text-red-500 hover:underline"
-          >
+          <button onClick={handleDelete} className="text-red-500 hover:underline">
             Delete
           </button>
         </div>
@@ -60,15 +57,12 @@ function ViewNote() {
       </div>
 
       <div className="mt-4">
-        <button
-          onClick={() => navigate("/notes")}
-          className="text-blue-500 hover:underline"
-        >
+        <button onClick={() => navigate('/notes')} className="text-blue-500 hover:underline">
           Back to Notes
         </button>
       </div>
     </div>
-  )
+  );
 }
 
-export default ViewNote
+export default ViewNote;

@@ -1,29 +1,29 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { loginUser } from "../services/authService"
-import { useAuth } from "../contexts/AuthContext"
-import { Link } from "react-router-dom"
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../services/authService';
+import { useAuth } from '../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 function Login() {
-  const [formData, setFormData] = useState({ email: "", password: "" })
-  const [error, setError] = useState("")
-  const navigate = useNavigate()
-  const { login } = useAuth()
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const user = await loginUser(formData.email, formData.password)
-      login(user)
-      navigate("/notes")
+      const user = await loginUser(formData.email, formData.password);
+      login(user);
+      navigate('/notes');
     } catch {
-      setError("Invalid email or password")
+      setError('Invalid email or password');
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -58,16 +58,13 @@ function Login() {
             </Link>
           </div>
 
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded w-full"
-          >
+          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded w-full">
             Login
           </button>
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

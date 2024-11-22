@@ -1,66 +1,63 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { registerUser } from "../services/authService"
-import { useAuth } from "../contexts/AuthContext"
-import { Link } from "react-router-dom"
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../services/authService';
+import { useAuth } from '../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 function Register() {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  })
-  const [error, setError] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const navigate = useNavigate()
-  const { login } = useAuth()
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const validatePassword = (password) => {
-    // Регулярное выражение для проверки пароля
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
-    return passwordRegex.test(password)
-  }
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    return passwordRegex.test(password);
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match")
-      return
+      setError('Passwords do not match');
+      return;
     }
 
     if (!validatePassword(formData.password)) {
       setError(
-        "Password must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, and one number."
-      )
-      return
+        'Password must be at least 8 characters long, with at least one uppercase letter, one lowercase letter, and one number.'
+      );
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      // Попробуем зарегистрировать пользователя
       const user = await registerUser({
         email: formData.email,
         password: formData.password,
-      })
-      login(user)
-      navigate("/notes")
+      });
+      login(user);
+      navigate('/notes');
     } catch (err) {
-      // Обрабатываем ошибку при регистрации (например, если email уже существует)
-      if (err.message === "Email is already registered") {
-        setError("This email is already registered")
+      if (err.message === 'Email is already registered') {
+        setError('This email is already registered');
       } else {
-        setError("Registration failed. Please try again.")
+        setError('Registration failed. Please try again.');
       }
-      console.error(err)
+      console.error(err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="h-screen flex items-center justify-center bg-gray-100">
@@ -110,12 +107,12 @@ function Register() {
             className="bg-blue-500 text-white py-2 px-4 rounded w-full mt-4"
             disabled={isLoading}
           >
-            {isLoading ? "Registering..." : "Register"}
+            {isLoading ? 'Registering...' : 'Register'}
           </button>
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;

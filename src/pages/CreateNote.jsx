@@ -1,30 +1,30 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { createNote } from "../services/noteService"
-import { useAuth } from "../contexts/AuthContext"
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createNote } from '../services/noteService';
+import { useAuth } from '../contexts/AuthContext';
 
 function CreateNote() {
-  const [formData, setFormData] = useState({ title: "", content: "" })
-  const navigate = useNavigate()
-  const { user } = useAuth()
+  const [formData, setFormData] = useState({ title: '', content: '' });
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!user) {
-      navigate("/login")
-      return
+      navigate('/login');
+      return;
     }
-    await createNote({ ...formData, authorId: user.id })
-    navigate("/notes")
-  }
+    await createNote({ ...formData, authorId: user.id });
+    navigate('/notes');
+  };
 
   const handleBack = () => {
-    navigate("/notes")
-  }
+    navigate('/notes');
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -58,17 +58,14 @@ function CreateNote() {
             >
               Back
             </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white py-2 px-4 rounded"
-            >
+            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
               Save Note
             </button>
           </div>
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default CreateNote
+export default CreateNote;
