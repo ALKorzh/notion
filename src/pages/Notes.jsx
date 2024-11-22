@@ -34,9 +34,7 @@ function Notes() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <header className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-bold">
-          Hello, {user?.username || "Guest"}
-        </h1>
+        <h1 className="text-xl font-bold">Hello, {user?.email || "Guest"}</h1>
         <nav className="flex space-x-4">
           <Link
             to="/"
